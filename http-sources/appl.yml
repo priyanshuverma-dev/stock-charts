@@ -1,0 +1,12 @@
+apiVersion: 0.1.0
+
+meta:
+  version: 0.2.5
+  name: stock-appl
+  type: http-source
+  topic: appl
+
+http:
+  endpoint: "http://localhost:8080/price?symbol=AAPL"
+  method: GET
+  interval: 3s

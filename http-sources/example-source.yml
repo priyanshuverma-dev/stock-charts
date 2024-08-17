@@ -1,0 +1,12 @@
+apiVersion: 0.1.0 # API version
+
+meta:
+  version: 0.2.5 # Version of this configuration
+  name: stock-appl # Name of the source. Prefix with `stock-` and use Stock NASDAQ symbol (e.g., `stock-appl` for Apple Inc.).
+  type: http-source # Type of the source
+  topic: appl # Topic name for the stock data. Create a topic with this name in your message broker.
+
+http:
+  endpoint: "http://localhost:8080/price?symbol=AAPL" # Endpoint to fetch stock price. Ensure the server is running and accessible.
+  method: GET # HTTP method for the request
+  interval: 3s # Interval for making requests. Adjust as needed.
