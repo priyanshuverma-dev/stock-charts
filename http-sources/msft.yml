@@ -7,6 +7,6 @@ meta:
   topic: msft
 
 http:
-  endpoint: "http://localhost:8080/price?symbol=MSFT"
+  endpoint: "http://localhost:8080/chart?symbol=MSFT"
   method: GET
-  interval: 3s
+  interval: 5s

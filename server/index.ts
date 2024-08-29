@@ -20,15 +20,9 @@ app.get("/price", async (req, res) => {
     }
 
     const quote = await yahooFinance.quote(symbol);
-    const { regularMarketPrice } = quote;
+    // const {} = quote;
 
-    const payload = {
-      symbol: symbol,
-      price: regularMarketPrice,
-      time: Date.now(),
-    };
-
-    return res.json(payload);
+    return res.json(quote);
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -88,6 +82,33 @@ app.get("/list", async (_, res) => {
     });
 
     return res.json(payload);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: error,
+    });
+  }
+});
+
+app.get("/chart", async (req, res) => {
+  try {
+    let symbol: string;
+    let interval: number;
+    if (req.query.symbol == null || req.query.interval == null) {
+      symbol = "AAPL";
+      interval = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).getTime();
+    } else {
+      symbol = req.query.symbol as string;
+      interval = parseInt(req.query.interval as string);
+    }
+
+    const chart = await yahooFinance.chart(symbol, {
+      period1: new Date(interval), // 1 year ago
+      period2: new Date(), // Now
+    });
+    const { quotes } = chart;
+
+    return res.json(quotes);
   } catch (error) {
     console.log(error);
     return res.status(500).json({

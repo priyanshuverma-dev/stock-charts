@@ -2,11 +2,11 @@ apiVersion: 0.1.0
 
 meta:
   version: 0.2.5
-  name: stock-amzn
+  name: stock-nflx
   type: http-source
-  topic: amzn
+  topic: nflx
 
 http:
-  endpoint: "http://localhost:8080/chart?symbol=AMZN"
+  endpoint: "http://localhost:8080/chart?symbol=NFLX"
   method: GET
   interval: 5s
