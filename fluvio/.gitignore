@@ -1,0 +1,5 @@
+infinyon-*.ipkg
+*.log
+
+/fluvio-data/*
+/fluvio-metadata/*
