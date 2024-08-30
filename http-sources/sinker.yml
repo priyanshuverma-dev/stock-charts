@@ -1,0 +1,10 @@
+apiVersion: 0.1.0
+meta:
+  version: 0.3.8
+  name: stocks-sinker
+  type: http-source
+  topic: stocks-sinker
+
+http:
+  endpoint: "http://localhost:5000/sync"
+  interval: 300s
