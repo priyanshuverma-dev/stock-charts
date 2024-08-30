@@ -27,16 +27,6 @@ RUN chmod +x /root/.fluvio/bin/* /root/.fvm/bin/*
 ENV PATH="$PATH:/root/.fluvio/bin:/root/.fvm/bin"
 
 
-
-# Log in to Fluvio
-RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env \
-    sh -c "source /etc/secrets/.env && \
-           fluvio cloud login --email $FLUVIO_CLOUD_EMAIL --password $FLUVIO_CLOUD_PASSWORD"
-
-RUN fluvio profile switch purple-mountain
-
-RUN fluvio topic list
-
 # Set the working directory for your app
 WORKDIR /app
 
@@ -52,8 +42,17 @@ RUN bun install
 # Copy the rest of your application code
 COPY . .
 
+# Copy the entrypoint script
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# Make the script executable
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Set the entrypoint
 # Expose the port your app runs on
 EXPOSE 3000
 
-# Start the application
-CMD ["bun", "run","index.ts"]
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+
+
