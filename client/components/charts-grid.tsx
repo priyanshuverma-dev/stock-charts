@@ -13,24 +13,25 @@ import { Button } from "./ui/button";
 import { ExpandIcon } from "lucide-react";
 import { chartModalState } from "@/lib/chart-modal-state";
 
-const fetchData = async (): Promise<Chart[]> => {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/chart/getall`);
+export default function ChartsGrid() {
+  const fetchData = async (): Promise<Chart[]> => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_URL}/api/chart/getall`
+      );
 
-    if (res.status === 200) {
-      const data = await res.json();
-      return data as Chart[];
-    } else {
-      console.error("Failed to fetch charts", res.status);
+      if (res.status === 200) {
+        const data = await res.json();
+        return data as Chart[];
+      } else {
+        console.error("Failed to fetch charts", res.status);
+        return [];
+      }
+    } catch (error) {
+      console.error("Error fetching charts:", error);
       return [];
     }
-  } catch (error) {
-    console.error("Error fetching charts:", error);
-    return [];
-  }
-};
-
-export default function ChartsGrid() {
+  };
   const [charts, setCharts] = useState<Chart[]>([]);
   const [loading, setLoading] = useState(true);
 

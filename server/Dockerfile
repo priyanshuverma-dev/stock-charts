@@ -29,7 +29,9 @@ ENV PATH="$PATH:/root/.fluvio/bin:/root/.fvm/bin"
 
 
 # Log in to Fluvio
-RUN fluvio cloud login --email $FLUVIO_CLOUD_EMAIL --password $FLUVIO_CLOUD_PASSWORD
+RUN --mount=type=secret,id=_env,dst=/etc/secrets/.env \
+    sh -c "source /etc/secrets/.env && \
+           fluvio cloud login --email $FLUVIO_CLOUD_EMAIL --password $FLUVIO_CLOUD_PASSWORD"
 
 RUN fluvio profile switch purple-mountain
 
