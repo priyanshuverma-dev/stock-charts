@@ -1,6 +1,8 @@
 import Fluvio, { type Topic } from "@fluvio/client";
 
-const fluvio = new Fluvio();
+const fluvio = new Fluvio({
+  host: "router.infinyon.cloud",
+});
 
 const fluvioClient = async () => await fluvio.connect();
 const fluvioAdmin = async () => {

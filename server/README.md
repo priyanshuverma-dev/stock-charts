@@ -1,9 +1,11 @@
-## Server for the stocks data stream
+> Out dated readme!
 
+## Server for the stocks data stream
 
 ## Overview
 
 This server provides two main functionalities:
+
 1. **Current Share Price Retrieval**: Fetches the current market price of a specified stock symbol using the Yahoo Finance API.
 2. **Real-time Streaming Data**: Streams real-time data from a Fluvio topic to clients via Server-Sent Events (SSE).
 
@@ -27,13 +29,13 @@ The server is built with Node.js, Express, and integrates with Yahoo Finance and
 
 1. **Install dependencies**:
 
-    ```bash
-    bun install
-    ```
+   ```bash
+   bun install
+   ```
 
 2. **Set environment variables**:
 
-    Ensure you have an environment variable `PORT` set, or it will default to `8080`.
+   Ensure you have an environment variable `PORT` set, or it will default to `8080`.
 
 ### Configuration
 
@@ -48,7 +50,6 @@ To start the server, run:
 ```bash
 bun dev
 ```
-
 
 The server will start and listen on the port defined by `PORT` or default to `8080`.
 

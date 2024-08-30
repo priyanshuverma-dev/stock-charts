@@ -60,7 +60,9 @@ export default function CreateChartModal() {
   });
   async function fetchStocks(query: string) {
     try {
-      const response = await fetch(`http://localhost:5000/search?q=${query}`);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/search?q=${query}`
+      );
       const data = await response.json();
       setStocks((prev) => data || []);
     } catch (error) {
