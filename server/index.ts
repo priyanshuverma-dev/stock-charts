@@ -111,7 +111,7 @@ app.get("/chart/:symbol", async (req, res) => {
     }
 
     // create topic with symbol
-    const topicName = await createTopic(symbol);
+    const topicName = await createTopic(symbol.toLowerCase());
 
     const chart = await yahooFinance.chart(symbol, {
       period1: new Date(interval), // 1 year ago

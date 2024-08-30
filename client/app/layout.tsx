@@ -4,9 +4,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { auth } from "@/auth";
 import AuthProvider from "@/providers/auth-provider";
-import AuthModal from "@/components/auth-modal";
 import { Toaster } from "react-hot-toast";
-import CreateChartModal from "@/components/create-chart-form";
+import ModalsProvider from "@/providers/modals";
 
 const fontHeading = IBM_Plex_Mono({
   subsets: ["latin"],
@@ -30,25 +29,22 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  modal,
 }: Readonly<{
   children: React.ReactNode;
-  modal: React.ReactNode;
 }>) {
   const session = await auth();
 
   return (
-    <html lang="en">
-      <body
-        className={cn("antialiased", fontHeading.variable, fontBody.variable)}
-      >
-        <AuthProvider session={session}>
-          <AuthModal />
-          <CreateChartModal />
-          <Toaster />
+    <AuthProvider session={session}>
+      <html lang="en">
+        <body
+          className={cn("antialiased", fontHeading.variable, fontBody.variable)}
+        >
           {children}
-        </AuthProvider>
-      </body>
-    </html>
+          <Toaster />
+          <ModalsProvider />
+        </body>
+      </html>
+    </AuthProvider>
   );
 }

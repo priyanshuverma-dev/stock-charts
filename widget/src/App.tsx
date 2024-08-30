@@ -20,7 +20,7 @@ function App({ clientId }: Props) {
     // Fetch the chart data from the API
     async function fetchChartData() {
       try {
-        const response = await fetch(`${CLIENT_URL}/api/chart/${clientId}`);
+        const response = await fetch(`${CLIENT_URL}/api/fetch/${clientId}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.statusText}`);
         }
