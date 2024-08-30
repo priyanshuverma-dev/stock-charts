@@ -2,37 +2,49 @@ import yahooFinance from "yahoo-finance2";
 
 import Express from "express";
 import cors from "cors";
-import Fluvio, { Offset, type Record, type Topic } from "@fluvio/client";
+import { Offset, type KeyValue, type Record, type Topic } from "@fluvio/client";
+import { createTopic, fluvio, fluvioClient, listTopic } from "./lib/fluvio";
+import { fetchChartData, validateSymbol } from "./lib/lib";
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
+const PARTITION = 0;
 
 const app = Express();
 app.use(cors());
 
-// To get current price of share (default to APPL) can be changed if add query `?symbol=MSFT`
-app.get("/price", async (req, res) => {
+// To sync chart data in pipelines
+app.get("/sync", async (_, res) => {
   try {
-    let symbol: string;
-    if (req.query.symbol == null) {
-      symbol = "AAPL";
-    } else {
-      symbol = String(req.query.symbol);
+    const client = await fluvioClient();
+    let topicNames = await listTopic();
+
+    if (topicNames.length <= 0) {
+      return res.json({ state: 1 });
     }
 
-    const quote = await yahooFinance.quote(symbol);
-    // const {} = quote;
+    for (let i = 0; i < topicNames.length; i++) {
+      const topic = topicNames[i];
 
-    return res.json(quote);
+      const chartData = await fetchChartData(
+        topic,
+        new Date(Date.now() - 5 * 60 * 60 * 1000) // past 5 hrs
+      );
+
+      const records: KeyValue[] = chartData.map((d) => {
+        return ["data", JSON.stringify(d)];
+      });
+
+      const producer = await client.topicProducer(topic);
+
+      await producer.sendAll(records);
+    }
+
+    return res.json({ state: 1 });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({
-      error: error,
-    });
+    return res.json({ state: 0 });
   }
 });
-
-const PARTITION = 0;
-const fluvio = new Fluvio();
 
 // To get stream data for client side websites requires topic-id.
 app.get("/stream/:topic", async (req, res) => {
@@ -69,19 +81,8 @@ app.get("/stream/:topic", async (req, res) => {
 // To get all the stocks topics
 app.get("/list", async (_, res) => {
   try {
-    await fluvio.connect();
-    let admin = await fluvio.admin();
-    let topicsStr = await admin.listTopic();
-
-    let topics = JSON.parse(topicsStr);
-
-    let payload = topics.map((topic: Topic) => {
-      return {
-        name: topic.name,
-      };
-    });
-
-    return res.json(payload);
+    let topics = await listTopic();
+    return res.json(topics);
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -90,25 +91,62 @@ app.get("/list", async (_, res) => {
   }
 });
 
-app.get("/chart", async (req, res) => {
+app.get("/chart/:symbol", async (req, res) => {
   try {
-    let symbol: string;
+    const { symbol } = req.params;
+
     let interval: number;
-    if (req.query.symbol == null || req.query.interval == null) {
-      symbol = "AAPL";
+    if (req.query.interval == null) {
       interval = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).getTime();
     } else {
-      symbol = req.query.symbol as string;
       interval = parseInt(req.query.interval as string);
     }
+
+    const validate = await validateSymbol(symbol);
+
+    if (!validate) {
+      return res.status(400).json({
+        error: "Symbol is not listed",
+      });
+    }
+
+    // create topic with symbol
+    const topicName = await createTopic(symbol);
 
     const chart = await yahooFinance.chart(symbol, {
       period1: new Date(interval), // 1 year ago
       period2: new Date(), // Now
+      interval: "1h",
     });
     const { quotes } = chart;
 
-    return res.json(quotes);
+    return res.json({
+      topic: topicName,
+      quotes,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      error: error,
+    });
+  }
+});
+
+app.get("/search", async (req, res) => {
+  try {
+    const q = req.query.q as string;
+
+    const results = await yahooFinance.search(q);
+
+    const { quotes } = results;
+
+    const quotesName = quotes
+      .map((quote) => {
+        return quote.symbol;
+      })
+      .filter((n) => n);
+
+    return res.json(quotesName);
   } catch (error) {
     console.log(error);
     return res.status(500).json({

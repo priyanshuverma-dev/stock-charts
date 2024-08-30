@@ -1,64 +1,36 @@
-# Stock Chart Client
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-This project provides a real-time stock price chart for various stock symbols using data streamed from a backend server. It leverages React, Recharts, and Tailwind CSS for UI and styling.
+## Getting Started
 
-## Prerequisites
+First, run the development server:
 
-Ensure you have the following installed:
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-- [Node.js](https://nodejs.org/) (version 18 or later)
-- [fluvio cli](https://www.fluvio.io/)
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Setup Instructions
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-1. **Clone the Repository**
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-   ```bash
-   git clone https://github.com/your-username/your-repo.git
-   cd your-repo
-   ```
+## Learn More
 
-2. **Install Dependencies**
+To learn more about Next.js, take a look at the following resources:
 
-   Using bun:
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-   ```bash
-   bun install
-   ```
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-3. **Configure Environment**
+## Deploy on Vercel
 
-   Ensure you have a running backend server at `http://localhost:8080` that provides stock price data via SSE (Server-Sent Events) at the endpoint `/stream/{symbol}`.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-4. **Run the Development Server**
-
-   Start the development server:
-
-   Using Yarn:
-
-   ```bash
-   yarn dev
-   ```
-
-   Or using npm:
-
-   ```bash
-   npm run dev
-   ```
-
-   Your application will be available at `http://localhost:3000`.
-
-5. **Usage**
-
-   - **Default Symbol**: The chart will display data for the stock symbol specified in the URL query parameter, e.g., `?symbol=appl`. If no symbol is specified, it defaults to `appl`.
-   - **Toggle Other Charts**: Use the "Show Other Charts" button to display additional stock charts.
-
-## Key Files
-
-- **`StockChart.tsx`**: Main component for rendering the stock price chart.
-- **`StockSwitch.tsx`**: Component for toggling between different stock charts.
-
-## Troubleshooting
-
-- **Backend Server**: Ensure the backend server is running and accessible at `http://localhost:8080`. Verify the endpoint `/stream/{symbol}` is correctly providing data.
-- See Readme of every section `http-sources`, `server`.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

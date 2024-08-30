@@ -1,38 +1,47 @@
 {
-  "name": "stock-chart",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "dev:server": "cd server && bun dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.4.2",
+    "@hookform/resolvers": "^3.9.0",
+    "@prisma/client": "5.19.0",
+    "@radix-ui/react-alert-dialog": "^1.1.1",
+    "@radix-ui/react-dialog": "^1.1.1",
+    "@radix-ui/react-label": "^2.1.0",
+    "@radix-ui/react-popover": "^1.1.1",
+    "@radix-ui/react-select": "^2.1.1",
+    "@radix-ui/react-slot": "^1.1.0",
+    "bson-objectid": "^2.0.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "critters": "^0.0.24",
-    "date-fns": "^3.6.0",
-    "lucide-react": "^0.428.0",
-    "moment": "^2.30.1",
-    "next": "14.2.5",
+    "cmdk": "1.0.0",
+    "lucide-react": "^0.436.0",
+    "next": "14.2.7",
+    "next-auth": "^5.0.0-beta.20",
     "react": "^18",
     "react-dom": "^18",
-    "react-stockcharts": "^0.7.8",
-    "recharts": "^2.13.0-alpha.4",
+    "react-hook-form": "^7.53.0",
+    "react-hot-toast": "^2.4.1",
+    "react-syntax-highlighter": "^15.5.0",
     "tailwind-merge": "^2.5.2",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-syntax-highlighter": "^15.5.13",
     "postcss": "^8",
-    "tailwindcss": "^3.4.1"
-  },
-  "trustedDependencies": [
-    "@fluvio/client"
-  ]
+    "prisma": "^5.19.0",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
 }
