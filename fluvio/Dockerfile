@@ -9,12 +9,15 @@ RUN apt-get update && \
 # Install Fluvio
 RUN curl -fsS https://hub.infinyon.cloud/install/install.sh?ctx=dc | bash
 
-# Set the PATH
-ENV PATH "$PATH:/root/.fluvio/bin"
-ENV PATH "$PATH:/root/.fvm/bin"
+# Set up environment variables in .bashrc
+RUN echo 'export PATH="$HOME/.fluvio/bin:$HOME/.fvm/bin:$PATH"' >> ~/.bashrc && \
+    echo 'source "${HOME}/.fvm/env"' >> ~/.bashrc
 
-# Copy any necessary scripts or files into the image
-# COPY your-script.sh /path/in/container/
+# Source .bashrc to ensure the environment variables are loaded
+RUN /bin/bash -c "source ~/.bashrc"
+
+# Set the PATH (useful if running commands outside of an interactive shell)
+ENV PATH "$PATH:/root/.fluvio/bin:/root/.fvm/bin"
 
 # Expose necessary ports for SC and SPU
 EXPOSE 9003 9010 9011
