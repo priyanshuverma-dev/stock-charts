@@ -4,8 +4,6 @@
   "devDependencies": {
     "@types/bun": "latest",
     "@types/node": "^22.3.0",
-    "pre-commit": "^1.2.2",
-    "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.17.0"
   },
@@ -16,11 +14,6 @@
     "ts.check": "tsc --project tsconfig.json",
     "add-build": "git add dist"
   },
-  "pre-commit": [
-    "ts.check",
-    "build",
-    "add-build"
-  ],
   "peerDependencies": {
     "typescript": "^5.5.4"
   },
