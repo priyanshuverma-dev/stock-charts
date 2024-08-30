@@ -16,6 +16,9 @@ RUN echo 'export PATH="$HOME/.fluvio/bin:$HOME/.fvm/bin:$PATH"' >> ~/.bashrc && 
 # Source .bashrc to ensure the environment variables are loaded
 RUN /bin/bash -c "source ~/.bashrc"
 
+# Ensure correct permissions for the Fluvio binaries
+RUN chmod +x /root/.fluvio/bin/* /root/.fvm/bin/*
+
 # Set the PATH (useful if running commands outside of an interactive shell)
 ENV PATH "$PATH:/root/.fluvio/bin:/root/.fvm/bin"
 
@@ -26,10 +29,10 @@ EXPOSE 9003 9010 9011
 RUN mkdir -p /fluvio/metadata /fluvio/data
 
 # Set up the entrypoint for SC and SPU
-ENTRYPOINT /bin/sh -c "\
+ENTRYPOINT /bin/bash -c "\
     ./fluvio-run sc --local /fluvio/metadata & \
     sleep 5 && \
-    ./fluvio profile add docker sc:9003 docker && \
-    ./fluvio cluster spu register --id 5001 -p 0.0.0.0:9110 -l 0.0.0.0:9010 --private-server 0.0.0.0:9011 && \
+    fluvio profile add docker sc:9003 docker && \
+    fluvio cluster spu register --id 5001 -p 0.0.0.0:9110 -l 0.0.0.0:9010 --private-server 0.0.0.0:9011 && \
     ./fluvio-run spu -i 5001 -p 0.0.0.0:9010 -v 0.0.0.0:9011 --sc-addr 127.0.0.1:9004 --log-base-dir /fluvio/data && \
     wait"
