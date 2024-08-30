@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import db from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
     const session = await auth();
     if (!session) throw new Error("login to fetch chart");

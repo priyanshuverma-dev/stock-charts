@@ -17,7 +17,8 @@ export default function ChartsGrid() {
   const fetchData = async (): Promise<Chart[]> => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_URL}/api/chart/getall`
+        `${process.env.NEXT_PUBLIC_URL}/api/chart/getall`,
+        { method: "POST" }
       );
 
       if (res.status === 200) {
