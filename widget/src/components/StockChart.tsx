@@ -18,6 +18,7 @@ import {
   mergeDuplicateData,
   stockIntervals,
 } from "../lib/utils";
+import { SERVER_URL } from "../data";
 
 const StockChart = ({ symbol }: { symbol: string; classNames: string }) => {
   const [interval, setInterval] = useState("1Y");
@@ -40,7 +41,7 @@ const StockChart = ({ symbol }: { symbol: string; classNames: string }) => {
   useEffect(() => {
     // Fetch historical chart data on initial render
     fetch(
-      `http://localhost:5000/chart/${symbol}/?interval=${getTimefromInterval(
+      `${SERVER_URL}/chart/${symbol}/?interval=${getTimefromInterval(
         currentStockInterval
       )}`
     ).then(async (res) => {
@@ -59,7 +60,7 @@ const StockChart = ({ symbol }: { symbol: string; classNames: string }) => {
     });
 
     // Set up SSE for real-time updates
-    const sse = new EventSource(`http://localhost:5000/stream/${symbol}`);
+    const sse = new EventSource(`${SERVER_URL}/stream/${symbol}`);
 
     sse.onmessage = (event) => {
       try {

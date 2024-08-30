@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import StockChart from "./components/StockChart";
+import { CLIENT_URL } from "./data";
 
 interface Props {
   clientId: string;
@@ -19,9 +20,7 @@ function App({ clientId }: Props) {
     // Fetch the chart data from the API
     async function fetchChartData() {
       try {
-        const response = await fetch(
-          `http://localhost:3000/api/chart/${clientId}`
-        );
+        const response = await fetch(`${CLIENT_URL}/api/chart/${clientId}`);
         if (!response.ok) {
           throw new Error(`Error: ${response.statusText}`);
         }
