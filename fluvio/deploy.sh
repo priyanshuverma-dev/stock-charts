@@ -6,6 +6,7 @@ PACKAGE_VERSION="0.3.8"
 PACKAGE_IPKG="${PACKAGE_NAME}.ipkg"
 PACKAGE_URL="infinyon/http-source@${PACKAGE_VERSION}"
 HTTP_SOURCES_DIR="."
+FILE="./sinker.yml"
 
 # Function to download the package if it doesn't exist
 download_package() {
@@ -19,14 +20,9 @@ download_package() {
 
 # Function to deploy configurations
 deploy_configurations() {
-  for file in ${HTTP_SOURCES_DIR}/*.yml; do
-    if [ -f "$file" ] && [ "$(basename "$file")" != "example-source.yml" ]; then
-      echo "Deploying ${file}..."
-      echo "Command: cdk deploy start --ipkg ${PACKAGE_IPKG} -c ${file}"
-      cdk deploy start --ipkg ${PACKAGE_IPKG} -c ${file}
-    else
-      echo "Skipping ${file}."
-    fi
+      echo "Deploying ${FILE}..."
+      echo "Command: cdk deploy start --ipkg ${PACKAGE_IPKG} -c ${FILE}"
+      cdk deploy start --ipkg ${PACKAGE_IPKG} -c ${FILE}
   done
 }
 
