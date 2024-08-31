@@ -9,8 +9,10 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { chartModalState } from "@/lib/chart-modal-state";
+import Script from "next/script";
 
 import { useEffect, useState } from "react";
+import ChartView from "./chart-view";
 
 type ChartData = {
   id: string;
@@ -51,21 +53,24 @@ export default function ChartModal() {
 
   if (!data) return null;
   return (
-    <AlertDialog
-      open={modal.isOpen}
-      onOpenChange={() => {
-        modal.onClose();
-      }}
-    >
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>{data.name}</AlertDialogTitle>
-          <AlertDialogDescription>clientId: {data.id}</AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Back</AlertDialogCancel>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+    <>
+      <AlertDialog
+        open={modal.isOpen}
+        onOpenChange={() => {
+          modal.onClose();
+        }}
+      >
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{data.name}</AlertDialogTitle>
+            <ChartView id={data.id} />
+            <AlertDialogDescription>clientId: {data.id}</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Back</AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }

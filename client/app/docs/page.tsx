@@ -67,12 +67,12 @@ export default function Docs() {
 <title>Embed Stock Widget</title>
 <link
 rel="stylesheet"
-href="https://cdn.jsdelivr.net/gh/priyanshuverma-dev/stock-charts/widget/dist/bundle.css"
+href="https://cdn.jsdelivr.net/gh/priyanshuverma-dev/stock-charts/widget@latest/dist/bundle.css"
 />
 </head>
 <body>
-<div id="<client-id>"></div>
-<script src="https://cdn.jsdelivr.net/gh/priyanshuverma-dev/stock-charts/widget/dist/bundle.js"></script>
+<div class="stockviz" id="<client-id>"></div>
+<script src="https://cdn.jsdelivr.net/gh/priyanshuverma-dev/stock-charts@latest/widget/dist/bundle.min.js"></script>
 </body>
 </html>
 `}
@@ -117,7 +117,7 @@ href="https://cdn.jsdelivr.net/gh/priyanshuverma-dev/stock-charts/widget/dist/bu
           <div className=" text-white rounded-lg p-4">
             <SyntaxHighlighter language="html">
               {`
-<div id="<client-id>" style="width: 600px; height: 400px;"></div>
+<div class="stockviz" id="<client-id>" style="width: 600px; height: 400px;"></div>
 `}
             </SyntaxHighlighter>
           </div>
@@ -142,7 +142,7 @@ import React, { useEffect } from 'react';
 export default function StockChartWidget() {
   useEffect(() => {
     const script = document.createElement('script');
-    script.src = "https://cdn.jsdelivr.net/gh/priyanshuverma-dev/stock-charts/widget/dist/bundle.js";
+    script.src = "https://cdn.jsdelivr.net/gh/priyanshuverma-dev/stock-charts@latest/widget/dist/bundle.min.js";
     script.async = true;
     document.body.appendChild(script);
 
@@ -151,7 +151,7 @@ export default function StockChartWidget() {
     };
   }, []);
 
-  return <div id="<client-id>"></div>;
+  return <div class="stockviz" id="<client-id>"></div>;
 }
 `}
             </SyntaxHighlighter>

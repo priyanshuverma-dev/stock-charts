@@ -23,7 +23,7 @@ deploy_configurations() {
       echo "Deploying ${FILE}..."
       echo "Command: cdk deploy start --ipkg ${PACKAGE_IPKG} -c ${FILE}"
       cdk deploy start --ipkg ${PACKAGE_IPKG} -c ${FILE}
-  done
+
 }
 
 

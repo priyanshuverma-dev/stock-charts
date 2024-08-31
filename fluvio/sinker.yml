@@ -6,5 +6,5 @@ meta:
   topic: stocks-sinker
 
 http:
-  endpoint: "http://localhost:5000/sync"
+  endpoint: "https://stockviz.onrender.com/sync"
   interval: 300s

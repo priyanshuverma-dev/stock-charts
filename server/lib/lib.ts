@@ -7,7 +7,7 @@ export const fetchChartData = async (
   const chart = await yahooFinance.chart(symbol, {
     period1: time,
     period2: new Date(), // Now
-    interval: "15m",
+    interval: "30m",
   });
 
   const { quotes } = chart;

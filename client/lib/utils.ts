@@ -9,18 +9,18 @@ export const codeSnippet = `
 <-- Add both in your website css in head and script in body -->
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/gh/priyanshuverma-dev/stock-charts/widget/dist/bundle.css"
+  href="https://cdn.jsdelivr.net/gh/priyanshuverma-dev/stock-charts@latest/widget/dist/bundle.css"
 />
 
 <script
-  src="https://cdn.jsdelivr.net/gh/priyanshuverma-dev/stock-charts/widget/dist/bundle.js"
+  src="https://cdn.jsdelivr.net/gh/priyanshuverma-dev/stock-charts@latest/widget/dist/bundle.min.js"
   >
 </script>
 
 <-- Add a div anywhere you want to embed chart -->
 <-- replace 'chart-id' from the one you get from dashboard -->
 
-<div id="chart-id"></div>
+<div class="stockviz" id="chart-id"></div>
 
 
 `;

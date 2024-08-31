@@ -27,7 +27,7 @@ app.get("/sync", async (_, res) => {
 
       const chartData = await fetchChartData(
         topic,
-        new Date(Date.now() - 5 * 60 * 60 * 1000) // past 5 hrs
+        new Date(Date.now() - 6 * 60 * 60 * 1000) // past 5 hrs
       );
 
       const records: KeyValue[] = chartData.map((d) => {
