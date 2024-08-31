@@ -8,7 +8,10 @@ This repository contains a complete system for fetching and visualizing real-tim
 2. **Client**: A web application for displaying stock price charts.
 3. **Fluvio**: Configuration files for fluvio cloud deployment.
 
-## Demo Video
+## Demo 
+[Live Preview](https://stockviz.vercel.app/)
+
+[Vote on Quira ✅️](https://quira.sh/repo/priyanshuverma-dev-stock-charts-843820386?utm_source=copy&utm_share_context=quests_creators)
 
 [Youtube link](https://youtu.be/juJXBffE9jw)
 
