@@ -6,7 +6,7 @@ import { Offset, type KeyValue, type Record, type Topic } from "@fluvio/client";
 import { createTopic, fluvio, fluvioClient, listTopic } from "./lib/fluvio";
 import { fetchChartData, validateSymbol } from "./lib/lib";
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 const PARTITION = 0;
 
 const app = Express();

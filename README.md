@@ -6,9 +6,10 @@ This repository contains a complete system for fetching and visualizing real-tim
 
 1. **Server**: A backend service for fetching stock prices.
 2. **Client**: A web application for displaying stock price charts.
-3. **Fluvio**: Configuration files for fluvio cloud deployment.
+3. **Fluvio**: Configuration files for Fluvio cloud deployment.
 
-## Demo 
+## Demo
+
 [Live Preview](https://stockviz.vercel.app/)
 
 [Vote on Quira ✅️](https://quira.sh/repo/priyanshuverma-dev-stock-charts-843820386?utm_source=copy&utm_share_context=quests_creators)
@@ -17,13 +18,13 @@ This repository contains a complete system for fetching and visualizing real-tim
 
 ## Overview
 
-- **Server**: Provides a REST API to get current stock prices and a streaming endpoint for real-time updates. (uses [fluvio](https://www.fluvio.io/))
+- **Server**: Provides a REST API to get current stock prices and a streaming endpoint for real-time updates. (uses [Fluvio](https://www.fluvio.io/))
 - **Client**: A React-based application that visualizes stock prices using Recharts and Tailwind CSS.
-- **Fluvio**: YAML configuration files used to define the sources to sync data and docker files. (for [fluvio](https://www.fluvio.io/))
+- **Fluvio**: YAML configuration files used to define the sources to sync data and Docker files. (for [Fluvio](https://www.fluvio.io/))
 
 ## Setup Instructions
 
-### Server
+#### Server
 
 1. **Navigate to the Server Directory**
 
@@ -45,7 +46,7 @@ This repository contains a complete system for fetching and visualizing real-tim
 
    The server will be available at `http://localhost:5000`.
 
-### Client
+#### Client
 
 1. **Navigate to the Client Directory**
 
@@ -53,13 +54,32 @@ This repository contains a complete system for fetching and visualizing real-tim
    cd client
    ```
 
-2. **Install Dependencies**
+2. **Create a `.env` File**
+
+   In the `client` directory of the project, create a file named .env with the following content:
+
+   ```env
+   AUTH_SECRET="changeMe"
+   AUTH_GITHUB_ID="<github-id>"
+   AUTH_GITHUB_SECRET="<github-secret>"
+   NEXT_PUBLIC_SERVER_URL="http://localhost:8000"
+   NEXT_PUBLIC_URL="http://localhost:3000"
+   DATABASE_URL="<mongodb>"
+   ```
+
+3. **Install Dependencies**
 
    ```bash
    bun install
    ```
 
-3. **Run the Development Server**
+4. **Generate Prisma Schema**
+
+   ```bash
+   npx prisma db push
+   ```
+
+5. **Run the Development Server**
 
    ```bash
    bun dev
@@ -67,7 +87,7 @@ This repository contains a complete system for fetching and visualizing real-tim
 
    The client application will be available at `http://localhost:3000`.
 
-### Fluvio
+#### Fluvio
 
 1. **Navigate to the Fluvio Directory**
 
@@ -81,17 +101,26 @@ This repository contains a complete system for fetching and visualizing real-tim
    cdk hub download infinyon/http-source@0.3.8
    ```
 
-3. **Create a topic**
+3. **Create a Topic**
 
    ```bash
    fluvio topic create stocks-sinker
    ```
 
 4. **Deploy Sinker**
+
    ```bash
    cdk deploy start --ipkg ./infinyon-http-source-0.3.8.ipkg -c ./sinker.yml
    ```
 
 ### Widget Scripts
 
-You will find widget Scripts in `widget/dist/` to add in website.
+To see widget open `widget/index.html` in root and change its `div` id with locally created id and
+open in browser.
+
+You will find widget scripts in `widget/dist/` to add to your website.
+You need to build widget again after any change in `widget` folder by:
+
+```bash
+bun run build
+```
