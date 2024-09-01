@@ -16,6 +16,9 @@ This repository contains a complete system for fetching and visualizing real-tim
 
 [Youtube link](https://youtu.be/juJXBffE9jw)
 
+[demo](https://github.com/user-attachments/assets/eaad9473-e23a-41b2-96d4-9ff6f2b2d816)
+
+
 ## Overview
 
 - **Server**: Provides a REST API to get current stock prices and a streaming endpoint for real-time updates. (uses [Fluvio](https://www.fluvio.io/))
