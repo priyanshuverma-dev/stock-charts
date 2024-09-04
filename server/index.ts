@@ -10,7 +10,11 @@ const PORT = process.env.PORT || 8000;
 const PARTITION = 0;
 
 const app = Express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 // To sync chart data in pipelines
 app.get("/sync", async (_, res) => {
@@ -59,7 +63,10 @@ app.get("/stream/:topic", async (req, res) => {
     res.flushHeaders();
 
     const client = await fluvio.connect();
-    const consumer = await client.partitionConsumer(topic, PARTITION);
+    const consumer = await client.partitionConsumer(
+      topic.toLowerCase().replaceAll(".", "-"),
+      PARTITION
+    );
     await consumer.stream(Offset.FromEnd(), async (record: Record) => {
       const eventData = record.valueString();
       const responseMsg = `data: ${JSON.stringify(eventData)}\n\n`;
@@ -111,7 +118,9 @@ app.get("/chart/:symbol", async (req, res) => {
     }
 
     // create topic with symbol
-    const topicName = await createTopic(symbol.toLowerCase());
+    const topicName = await createTopic(
+      symbol.toLowerCase().replaceAll(".", "-")
+    );
 
     const chart = await yahooFinance.chart(symbol, {
       period1: new Date(interval), // 1 year ago

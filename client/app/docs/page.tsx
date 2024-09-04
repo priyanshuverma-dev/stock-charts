@@ -67,7 +67,7 @@ export default function Docs() {
 <title>Embed Stock Widget</title>
 <link
 rel="stylesheet"
-href="https://cdn.jsdelivr.net/gh/priyanshuverma-dev/stock-charts/widget@latest/dist/bundle.css"
+href="https://cdn.jsdelivr.net/gh/priyanshuverma-dev/stock-charts/widget/dist/bundle.css"
 />
 </head>
 <body>

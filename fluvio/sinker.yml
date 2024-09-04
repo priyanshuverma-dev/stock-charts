@@ -7,4 +7,4 @@ meta:
 
 http:
   endpoint: "https://stockviz.onrender.com/sync"
-  interval: 300s
+  interval: 120s
