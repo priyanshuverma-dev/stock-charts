@@ -14,7 +14,7 @@ This repository contains a complete system for fetching and visualizing real-tim
 
 [Vote on Quira ✅️](https://quira.sh/repo/priyanshuverma-dev-stock-charts-843820386?utm_source=copy&utm_share_context=quests_creators)
 
-[Youtube link](https://youtu.be/juJXBffE9jw)
+[Youtube link](https://www.youtube.com/watch?v=pHJBXAq21iw)
 
 [demo](https://github.com/user-attachments/assets/eaad9473-e23a-41b2-96d4-9ff6f2b2d816)
 
